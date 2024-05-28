@@ -55,7 +55,7 @@ namespace XDPTPM.bep
                         string unit = dataReader.GetString(2);
                         int completionTime = dataReader.GetInt32(3);
 
-                        string trTemp = $"<tr><th>{nameProduct}</th><th>{quantity}</th><th>{unit}</th><th>{completionTime}</th></tr>";
+                        string trTemp = $"<tr><th>{nameProduct}</th><th>{quantity}</th><th>{unit}</th><th>{completionTime} phút</th></tr>";
                         contentHtml += trTemp;
                     }
 

@@ -25,14 +25,28 @@
         </footer>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            setInterval(reloadPage, 10000);
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "index.aspx/getListOrder",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+
+                        var orderListHTML = response.d;
+
+                        $("#list_order").html(orderListHTML);
+                    },
+                    failure: function (response) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
         });
 
-        function reloadPage() {
-            location.reload(true);
-        }
     </script>
 </body>
 </html>
