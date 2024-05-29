@@ -67,6 +67,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\login\assets\css\main.css" />
+    <Content Include="admin\login\assets\css\reset.css" />
+    <Content Include="admin\login\assets\img\bg.png" />
+    <Content Include="admin\login\index.aspx" />
     <Content Include="assets\bep\assets\css\global.css" />
     <Content Include="assets\bep\assets\css\main.css" />
     <Content Include="assets\bep\assets\css\orderDetails.css" />
@@ -77,6 +81,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\login\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\login\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="bep\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -104,6 +115,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="admin\login\assets\js\" />
     <Folder Include="assets\bep\assets\js\" />
   </ItemGroup>
   <PropertyGroup>
