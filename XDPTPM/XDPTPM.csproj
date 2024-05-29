@@ -71,13 +71,19 @@
     <Content Include="admin\login\assets\css\reset.css" />
     <Content Include="admin\login\assets\img\bg.png" />
     <Content Include="admin\login\index.aspx" />
-    <Content Include="assets\bep\assets\css\global.css" />
-    <Content Include="assets\bep\assets\css\main.css" />
-    <Content Include="assets\bep\assets\css\orderDetails.css" />
-    <Content Include="assets\bep\assets\css\reset.css" />
-    <Content Include="assets\bep\assets\img\images %281%29.png" />
+    <Content Include="bep\assets\css\global.css" />
+    <Content Include="bep\assets\css\main.css" />
+    <Content Include="bep\assets\css\orderDetails.css" />
+    <Content Include="bep\assets\css\reset.css" />
+    <Content Include="bep\assets\img\images %281%29.png" />
     <Content Include="bep\index.aspx" />
     <Content Include="bep\orderDetails.aspx" />
+    <Content Include="thucdon\assets\css\all.css" />
+    <Content Include="thucdon\assets\css\style.css" />
+    <Content Include="thucdon\assets\img\bg.png" />
+    <Content Include="thucdon\assets\js\jQuery.js" />
+    <Content Include="thucdon\assets\js\main.js" />
+    <Content Include="thucdon\index.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -103,10 +109,21 @@
       <DependentUpon>orderDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="DbConnection.cs" />
+    <Compile Include="order_dish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="thucdon\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="thucdon\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="thucdon\assets\font\fa-regular-400.woff2" />
+    <Content Include="thucdon\assets\font\fontello.ttf" />
+    <Content Include="thucdon\assets\font\fontello.woff" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -116,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="admin\login\assets\js\" />
-    <Folder Include="assets\bep\assets\js\" />
+    <Folder Include="bep\assets\js\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
