@@ -73,6 +73,14 @@ namespace XDPTPM.thucdon
         {
             try
             {
+                foreach(var _order_s in order_s)
+                {
+                    if(_order_s.ProductID == ProductID)
+                    {
+                        _order_s.Quantity = (int.Parse(_order_s.Quantity) + 1).ToString();
+                        return true;
+                    }
+                }
                 order_s.Add(new order_dish { OrderDetailsID = OrderDetailsID, TableID = TableID, ProductID = ProductID, Quantity = 1.ToString() });
                 return true;
             }

@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css" />
     <link rel="stylesheet" href="./assect/css/all.css" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Phim Lẻ - Phim Chiếu Rạp Hay</title>
     <style>
         .thongbao {
@@ -172,6 +173,16 @@
             </div>
             </div>
         </main>
+
+        <div class="cart-icon ">
+            <a href="../cart/index.aspx">
+
+                <i class='cart-icon-i bx bx-cart'></i>
+                <span class="cart-notice">0</span>
+
+            </a>
+        </div>
+
         <script type="text/javascript" src="./assets/js/jQuery.js"></script>
         <script type="text/javascript" src="./assets/js/main.js"></script>
         <script>
