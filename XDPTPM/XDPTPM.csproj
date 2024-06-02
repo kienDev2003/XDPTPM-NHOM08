@@ -79,6 +79,9 @@
     <Content Include="bep\index.aspx" />
     <Content Include="bep\orderDetails.aspx" />
     <Content Include="client\cart\index.aspx" />
+    <Content Include="client\checkout\assets\css\main.css" />
+    <Content Include="client\checkout\assets\img\image.jpg" />
+    <Content Include="client\checkout\index.aspx" />
     <Content Include="client\thucdon\assets\css\all.css" />
     <Content Include="client\thucdon\assets\css\style.css" />
     <Content Include="client\thucdon\assets\img\bg.png" />
@@ -109,11 +112,19 @@
     <Compile Include="bep\orderDetails.aspx.designer.cs">
       <DependentUpon>orderDetails.aspx</DependentUpon>
     </Compile>
+    <Compile Include="checkOut.cs" />
     <Compile Include="client\cart\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="client\cart\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="client\checkout\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="client\checkout\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="DbConnection.cs" />
@@ -145,6 +156,7 @@
     <Folder Include="client\cart\assets\css\" />
     <Folder Include="client\cart\assets\img\" />
     <Folder Include="client\cart\assets\js\" />
+    <Folder Include="client\checkout\assets\js\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

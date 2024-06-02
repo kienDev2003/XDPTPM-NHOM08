@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -70,7 +71,8 @@ namespace XDPTPM.thucdon
         }
 
         [WebMethod]
-        public static bool addDishToOrder(string ProductID)
+        public static string addDishToOrder(string ProductID)
+        
         {
             try
             {
@@ -79,15 +81,15 @@ namespace XDPTPM.thucdon
                     if (_order_s.ProductID == ProductID)
                     {
                         _order_s.Quantity = (int.Parse(_order_s.Quantity) + 1).ToString();
-                        return true;
+                        return order_s.Count.ToString();
                     }
                 }
                 order_s.Add(new order_dish { OrderDetailsID = OrderDetailsID, TableID = TableID, ProductID = ProductID, Quantity = 1.ToString() });
-                return true;
+                return order_s.Count.ToString(); ;
             }
             catch (Exception ex)
             {
-                return false;
+                return "Error";
             }
         }
     }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XDPTPM.client.cart
+namespace XDPTPM.client.checkout
 {
 
 
@@ -15,39 +15,57 @@ namespace XDPTPM.client.cart
     {
 
         /// <summary>
-        /// table_Content control.
+        /// img_qr_bank control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl table_Content;
+        protected global::System.Web.UI.HtmlControls.HtmlImage img_qr_bank;
 
         /// <summary>
-        /// txtTotalPrice control.
+        /// bank control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl txtTotalPrice;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText bank;
 
         /// <summary>
-        /// form1 control.
+        /// nameAccount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText nameAccount;
 
         /// <summary>
-        /// btn_checkout control.
+        /// account_number control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btn_checkout;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText account_number;
+
+        /// <summary>
+        /// bank_content control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText bank_content;
+
+        /// <summary>
+        /// amount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText amount;
     }
 }

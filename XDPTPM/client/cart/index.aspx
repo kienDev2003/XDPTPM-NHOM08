@@ -56,55 +56,6 @@
                             </tr>
                         </thead>
                         <tbody id="table_Content" runat="server">
-
-                            <tr>
-                                <td class="p-4">
-                                    <div class="media align-items-center">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="d-block ui-w-40 ui-bordered mr-4" alt="">
-                                        <div class="media-body">
-                                            <a href="#" class="d-block text-dark">Product 1</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right font-weight-semibold align-middle p-4">$57.55</td>
-                                <td class="align-middle p-4">
-                                    <input type="text" class="form-control text-center" value="2"></td>
-                                <td class="text-right font-weight-semibold align-middle p-4">$115.1</td>
-                                <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-4">
-                                    <div class="media align-items-center">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="d-block ui-w-40 ui-bordered mr-4" alt="">
-                                        <div class="media-body">
-                                            <a href="#" class="d-block text-dark">Product 2</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right font-weight-semibold align-middle p-4">$1049.00</td>
-                                <td class="align-middle p-4">
-                                    <input type="text" class="form-control text-center" value="1"></td>
-                                <td class="text-right font-weight-semibold align-middle p-4">$1049.00</td>
-                                <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
-                            </tr>
-
-                            <tr>
-                                <td class="p-4">
-                                    <div class="media align-items-center">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" class="d-block ui-w-40 ui-bordered mr-4" alt="">
-                                        <div class="media-body">
-                                            <a href="#" class="d-block text-dark">Product 3</a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-right font-weight-semibold align-middle p-4">$20.55</td>
-                                <td class="align-middle p-4">
-                                    <input type="text" class="form-control text-center" value="1"></td>
-                                <td class="text-right font-weight-semibold align-middle p-4">$20.55</td>
-                                <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
-                            </tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -118,10 +69,12 @@
                         </div>
                     </div>
                 </div>
+                <form runat="server" id="form1">
+                    <div class="float-right">
+                        <button type="button" id="btn_checkout" runat="server" onserverclick="btn_checkout_ServerClick" class="btn btn-lg btn-primary mt-2">Check out</button>
+                    </div>
+                </form>
 
-                <div class="float-right">
-                    <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
-                </div>
 
             </div>
         </div>
@@ -145,8 +98,25 @@
                     $("#table_Content").html(result.ContentHtml);
 
                     $("#txtTotalPrice").text(result.TotalAll);
+                },
+                error: function (response) {
+                    alert("error");
+                }
+            });
+        });
 
-                    alert("Đã thay đổi số lượng");
+        $(document).on('click', 'input[type="button"]', function () {
+
+            var productId = $(this).attr('id');
+
+            $.ajax({
+                type: "POST",
+                url: "index.aspx/deleteDish",
+                data: JSON.stringify({ productID: productId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    location.reload();
                 },
                 error: function (response) {
                     alert("error");
