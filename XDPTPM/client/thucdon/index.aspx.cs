@@ -21,9 +21,10 @@ namespace XDPTPM.thucdon
             {
                 TableID = Request.QueryString["tableID"].ToString();
                 OrderDetailsID = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-                OrderDetailsID = OrderDetailsID.Replace("-","");
+                OrderDetailsID = OrderDetailsID.Replace("-", "");
                 getListDish();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Response.Write("<script>alert(\"Truy cập không hợp lệ.\")</script>");
             }
@@ -46,9 +47,9 @@ namespace XDPTPM.thucdon
             connection.getConnection();
 
             string query = "SELECT * FROM tbl_Product WHERE Status = 1;";
-            using(SqlCommand cmd = new SqlCommand(query, connection.conn))
+            using (SqlCommand cmd = new SqlCommand(query, connection.conn))
             {
-                using(SqlDataReader dataReader = cmd.ExecuteReader())
+                using (SqlDataReader dataReader = cmd.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {
@@ -73,9 +74,9 @@ namespace XDPTPM.thucdon
         {
             try
             {
-                foreach(var _order_s in order_s)
+                foreach (var _order_s in order_s)
                 {
-                    if(_order_s.ProductID == ProductID)
+                    if (_order_s.ProductID == ProductID)
                     {
                         _order_s.Quantity = (int.Parse(_order_s.Quantity) + 1).ToString();
                         return true;
@@ -84,7 +85,7 @@ namespace XDPTPM.thucdon
                 order_s.Add(new order_dish { OrderDetailsID = OrderDetailsID, TableID = TableID, ProductID = ProductID, Quantity = 1.ToString() });
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }

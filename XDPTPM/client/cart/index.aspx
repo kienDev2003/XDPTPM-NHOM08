@@ -120,12 +120,39 @@
                 </div>
 
                 <div class="float-right">
-                    <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</button>
                     <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
                 </div>
 
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).on('change', 'input[type="number"]', function () {
+
+            var productId = $(this).attr('id');
+            var quantity = $(this).val();
+
+            $.ajax({
+                type: "POST",
+                url: "index.aspx/changeQuantityDish",
+                data: JSON.stringify({ productID: productId, quantityNew: quantity }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    var result = JSON.parse(response.d);
+
+                    $("#table_Content").html(result.ContentHtml);
+
+                    $("#txtTotalPrice").text(result.TotalAll);
+
+                    alert("Đã thay đổi số lượng");
+                },
+                error: function (response) {
+                    alert("error");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
