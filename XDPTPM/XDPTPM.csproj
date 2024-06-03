@@ -80,6 +80,7 @@
     <Content Include="bep\orderDetails.aspx" />
     <Content Include="client\cart\index.aspx" />
     <Content Include="client\checkout\assets\css\main.css" />
+    <Content Include="client\checkout\assets\css\res.css" />
     <Content Include="client\checkout\assets\img\image.jpg" />
     <Content Include="client\checkout\index.aspx" />
     <Content Include="client\thucdon\assets\css\all.css" />

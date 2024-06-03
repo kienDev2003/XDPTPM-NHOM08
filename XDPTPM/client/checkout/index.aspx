@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thanh Toán</title>
     <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/res.css">
+    <%--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>--%>
 </head>
 <body>
     <div class="container">
@@ -33,14 +36,14 @@
                 <div class="form-group">
                     <label for="amount">Ngân hàng:</label>
                     <div class="input-group">
-                        <input type="text" readonly  id="bank" runat="server" name="id" required>
+                        <input type="text" readonly id="bank" runat="server" name="id" required>
                         <button type="button" class="copy-btn" onclick="copyText('bank')">Sao chép</button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="name">Chủ tài khoản:</label>
                     <div class="input-group">
-                        <input type="text" readonly  id="nameAccount" runat="server" name="name" required>
+                        <input type="text" readonly id="nameAccount" runat="server" name="name" required>
                         <button type="button" class="copy-btn" onclick="copyText('nameAccount')">Sao chép</button>
                     </div>
                 </div>
@@ -48,7 +51,7 @@
                 <div class="form-group">
                     <label for="account-number">Số tài khoản:</label>
                     <div class="input-group">
-                        <input type="text" readonly  id="account_number" runat="server" name="account-number" required>
+                        <input type="text" readonly id="account_number" runat="server" name="account-number" required>
                         <button type="button" class="copy-btn" onclick="copyText('account_number')">Sao chép</button>
                     </div>
                 </div>
@@ -56,7 +59,7 @@
                 <div class="form-group">
                     <label for="bank">Nội dung:</label>
                     <div class="input-group">
-                        <input type="text" readonly  id="bank_content" runat="server" name="bank" required>
+                        <input type="text" readonly id="bank_content" runat="server" name="bank" required>
                         <button type="button" class="copy-btn" onclick="copyText('bank_content')">Sao chép</button>
                     </div>
                 </div>
@@ -82,3 +85,4 @@
         }
     </script>
 </body>
+</html>

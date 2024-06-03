@@ -143,20 +143,27 @@ namespace XDPTPM.client.cart
 
         protected void btn_checkout_ServerClick(object sender, EventArgs e)
         {
-            string total = txtTotalPrice.InnerText;
-            string TableID = order_Dishes[0].TableID.ToString();
-            string CTK = ConfigurationManager.AppSettings["CTK"].ToString();
-            string STK = ConfigurationManager.AppSettings["STK"].ToString();
-            string ID_Bank = ConfigurationManager.AppSettings["ID_Bank"].ToString();
-            string Template = ConfigurationManager.AppSettings["Template"].ToString();
-            string content = $"{DateTime.Now.ToString("yyyy-MM-dd-ss")}" + $"--Thanh_Toan_Hoa_Don_Ban-{order_Dishes[0].TableID}";
+            try
+            {
+                string total = txtTotalPrice.InnerText;
+                string TableID = order_Dishes[0].TableID.ToString();
+                string CTK = ConfigurationManager.AppSettings["CTK"].ToString();
+                string STK = ConfigurationManager.AppSettings["STK"].ToString();
+                string ID_Bank = ConfigurationManager.AppSettings["ID_Bank"].ToString();
+                string Template = ConfigurationManager.AppSettings["Template"].ToString();
+                string content = $"{DateTime.Now.ToString("yyyy-MM-dd-ss")}" + $"--Thanh_Toan_Hoa_Don_Ban-{order_Dishes[0].TableID}";
 
-            List<checkOut> list = new List<checkOut>();
-            list.Add(new checkOut { total = total, CTK = CTK,STK= STK,ID_Bank=ID_Bank,Template=Template,content=content,Table_ID = TableID });
+                List<checkOut> list = new List<checkOut>();
+                list.Add(new checkOut { total = total, CTK = CTK, STK = STK, ID_Bank = ID_Bank, Template = Template, content = content, Table_ID = TableID });
 
-            Session["checkOut"] = list;
+                Session["checkOut"] = list;
 
-            Response.Redirect("../checkout/index.aspx");
+                Response.Redirect("../checkout/index.aspx");
+            }
+            catch(Exception ex)
+            {
+                Response.Write("<script>alert(\"Không có món ăn thanh toán\")</script>");
+            }
         }
     }
 }
