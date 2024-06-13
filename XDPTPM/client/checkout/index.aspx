@@ -8,8 +8,6 @@
     <title>Thanh Toán</title>
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/res.css">
-    <%--<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>--%>
 </head>
 <body>
     <div class="container">
@@ -74,7 +72,50 @@
             </form>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var isPaymentProcessed = false;
 
+        $(document).ready(function () {
+            setInterval(function () {
+                if (!isPaymentProcessed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "index.aspx/checkPayment",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (response) {
+
+                            var statusPayment = response.d;
+
+                            if (statusPayment == "True") {
+                                sPaymentProcessed = true;
+
+                                Swal.fire(
+                                    'Payment Successful',
+                                    'Chúng tôi sẽ chuyển hướng bạn về Menu',
+                                    'success'
+                                ).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '../../RemoveSession.aspx';
+                                    }
+                                });
+
+                                setTimeout(function () {
+                                    window.location.href = '../../RemoveSession.aspx';
+                                }, 5000);
+                            }
+                        },
+                        failure: function (response) {
+                            alert("error");
+                        }
+                    });
+                }
+            }, 8000);    
+        });
+
+    </script>
     <script>
         function copyText(id) {
             var copyText = document.getElementById(id);

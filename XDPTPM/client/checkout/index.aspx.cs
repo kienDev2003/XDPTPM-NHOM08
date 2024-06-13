@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -17,7 +19,7 @@ namespace XDPTPM.client.checkout
                 list = (List<checkOut>)Session["checkOut"];
                 setContent(list);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Response.Write("<script>alert(\"Truy cập không hợp lệ\")</script>");
             }
@@ -32,6 +34,18 @@ namespace XDPTPM.client.checkout
             account_number.Value = list[0].STK;
             bank_content.Value = list[0].content.ToString();
             amount.Value = list[0].total;
+        }
+
+        [WebMethod]
+        public static string checkPayment()
+        {
+            Random r = new Random();
+
+            if (r.Next(7, 9) == 8)
+            {
+                return true.ToString();
+            }
+            return false.ToString();
         }
     }
 }
