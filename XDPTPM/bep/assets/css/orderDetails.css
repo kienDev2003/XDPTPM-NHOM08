@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  object-fit: cover;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.header .tittle {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 4.6rem;
+  text-transform: uppercase;
+}
+
+.main {
+  margin-top: 50px;
+}
+
+.main table {
+  width: 100%;
+  border: 1px solid #f0f4f8;
+}
+
+.main table th,
+td {
+  padding: 15px 30px;
+}
+
+.main table thead th {
+  color: #364d67;
+  font-weight: 600;
+  background-color: #f1f7fd;
+}
+
+.main table tbody tr {
+  border-top: 1px solid #f0f4f8;
+}
+
+#btnSuccess {
+  margin-top: 30px;
+  text-align: center;
+  background-color: #13aa52;
+  border: 1px solid #13aa52;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  padding: 10px 25px;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#btnSuccess:hover {
+  box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
+  transform: translateY(-2px);
+}
+
+.footer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
