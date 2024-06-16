@@ -20,7 +20,7 @@ namespace XDPTPM.thucdon
         {
             try
             {
-                order_s= new List<order_dish>();
+                order_s = new List<order_dish>();
 
                 TableID = Request.QueryString["tableID"].ToString();
                 OrderDetailsID = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
@@ -75,8 +75,8 @@ namespace XDPTPM.thucdon
 
         [WebMethod]
         public static string addDishToOrder(string ProductID)
-        
         {
+            int completionTime = 0;
             try
             {
                 foreach (var _order_s in order_s)
@@ -87,7 +87,26 @@ namespace XDPTPM.thucdon
                         return order_s.Count.ToString();
                     }
                 }
-                order_s.Add(new order_dish { OrderDetailsID = OrderDetailsID, TableID = TableID, ProductID = ProductID, Quantity = 1.ToString() });
+                connection.getConnection();
+
+                string sql = $"SELECT CompletionTime FROM tbl_Product WHERE ID = @ProductID";
+                using (SqlCommand cmd = new SqlCommand(sql, connection.conn))
+                {
+                    cmd.Parameters.AddWithValue("@ProductId", ProductID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string temp = reader.GetInt32(0).ToString();
+                            completionTime = int.Parse(temp);
+                        }
+                    }
+                }
+
+                connection.closeConnection();
+
+                order_s.Add(new order_dish { OrderDetailsID = OrderDetailsID, TableID = TableID, ProductID = ProductID, Quantity = 1.ToString(), CompletionTime = completionTime.ToString()});
                 return order_s.Count.ToString(); ;
             }
             catch (Exception ex)

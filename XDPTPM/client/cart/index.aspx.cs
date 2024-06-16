@@ -151,8 +151,8 @@ namespace XDPTPM.client.cart
                 string STK = ConfigurationManager.AppSettings["STK"].ToString();
                 string ID_Bank = ConfigurationManager.AppSettings["ID_Bank"].ToString();
                 string Template = ConfigurationManager.AppSettings["Template"].ToString();
-                string content = $"{DateTime.Now.ToString("yyyy-MM-dd-ss")}" + $"--Thanh_Toan_Hoa_Don_Ban-{order_Dishes[0].TableID}";
-
+                string content = $"{DateTime.Now.ToString("yyA-MMB-ddC-HHD-mmE-ssG").Replace("-","")}";
+       
                 List<checkOut> list = new List<checkOut>();
                 list.Add(new checkOut { total = total, CTK = CTK, STK = STK, ID_Bank = ID_Bank, Template = Template, content = content, Table_ID = TableID });
 

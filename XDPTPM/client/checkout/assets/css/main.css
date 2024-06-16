@@ -46,9 +46,9 @@ body {
 }
 .qr-code img{
   display: block;
-  width: 407px;
-  height: 442px;
-  object-fit:cover;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
 
 form {

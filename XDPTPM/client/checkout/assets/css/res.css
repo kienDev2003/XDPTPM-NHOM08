@@ -1,10 +1,40 @@
-@media (min-width: 600px) {
+@media (max-width: 576px) {
     .container {
         flex-direction: row;
         width: 100%;
     }
-    
+
     .payment-method {
         margin: 10px;
     }
+
+    .transfer-form h2 {
+        margin-bottom: 0;
+        margin-top: 250px;
+        ;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 80%;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 80%;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+      }
 }

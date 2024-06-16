@@ -87,9 +87,9 @@
                         dataType: "json",
                         success: function (response) {
 
-                            var statusPayment = response.d;
+                            var completionTime = response.d;
 
-                            if (!statusPayment) return;
+                            if (!completionTime) return;
 
                             sPaymentProcessed = true;
 
@@ -99,12 +99,12 @@
                                 'success'
                             ).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = '../thanks/index.aspx';
+                                    window.location.href = '../thanks/index.aspx?time=' + completionTime;
                                 }
                             });
 
                             setTimeout(function () {
-                                window.location.href = '../thanks/index.aspx';
+                                window.location.href = '../thanks/index.aspx?time=' + completionTime;
                             }, 5000);
                         },
                         failure: function (response) {

@@ -11,6 +11,6 @@ namespace XDPTPM
         public string TableID { get; set; }
         public string Quantity { get; set; }
         public string OrderDetailsID { get; set; }
-
+        public string CompletionTime {  get; set; }
     }
 }

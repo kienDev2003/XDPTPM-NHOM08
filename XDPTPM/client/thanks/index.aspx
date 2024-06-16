@@ -94,16 +94,51 @@
 
 <body>
     <h1 class="text" aria-label="Thank you. Have a nice day!">
-        <span class="heading" aria-hidden="true">
-            <span>Thank you</span>
-            <span>Thank you</span>
-            <span class="filled">Thank you</span>
-            <span>Thank you</span>
-            <span>Thank you</span>
-            <span>Thank you</span>
-        </span>
-        <span class="subheading" aria-hidden="true">Have a nice day</span>
+        <center>
+            <span class="heading" aria-hidden="true">
+                <span>Thank you</span>
+                <span class="filled">Thank you</span>
+                <span>Thank you</span>
+            </span>
+        </center>
+        <center>
+            <span class="subheading" aria-hidden="true">Món ăn của bạn sẽ lên dần sau
+                <p id="time"></p>
+            </span>
+        </center>
     </h1>
+    <script>
+		
+		function getQueryParam(param) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+		
+        function startCountdown(minutes) {
+            let totalSeconds = minutes * 60;
+            let countdownDisplay = document.getElementById('time');
+
+            function updateCountdown() {
+                let mins = Math.floor(totalSeconds / 60);
+                let secs = totalSeconds % 60;
+
+                countdownDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    countdownDisplay.textContent = "Không hợp lệ";
+                }
+            }
+
+            updateCountdown();
+        }
+		
+		var time = parseInt(getQueryParam('time'));
+		time = time + 2;
+        startCountdown(time);
+    </script>
 </body>
 
 </html>
