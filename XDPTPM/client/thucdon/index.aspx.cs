@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
@@ -13,33 +17,41 @@ namespace XDPTPM.thucdon
     public partial class index : System.Web.UI.Page
     {
         static DbConnection connection = new DbConnection();
-        static List<order_dish> order_s;
-        static string TableID = "";
-        static string OrderDetailsID = "";
+        static List<order_dish> order_s = new List<order_dish>();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
+            
+            if(!IsPostBack)
             {
-                order_s = new List<order_dish>();
+                try
+                {
+                    string TableID = Request.QueryString["tableID"].ToString();
+                    Session["tableID"] = TableID;
 
-                TableID = Request.QueryString["tableID"].ToString();
-                OrderDetailsID = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-                OrderDetailsID = OrderDetailsID.Replace("-", "");
-                getListDish();
+                    getListDish();
+
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert(\"Truy cập không hợp lệ.\")</script>");
+                    return;
+                }
+                if (Request.Cookies["OrderList"] == null)
+                {
+                    HttpCookie jsonCookie = new HttpCookie("OrderList");
+                    jsonCookie.Expires = DateTime.Now.AddMinutes(20);
+                    string json = JsonConvert.SerializeObject(order_s);
+                    jsonCookie.Value = json;
+                    Response.Cookies.Add(jsonCookie);
+
+                }
+                else
+                {
+                    order_s = ReturnOrderList();
+                }
             }
-            catch (Exception ex)
-            {
-                Response.Write("<script>alert(\"Truy cập không hợp lệ.\")</script>");
-                return;
-            }
-            if (Session["OrderList"] == null)
-            {
-                Session["OrderList"] = order_s;
-            }
-            else
-            {
-                order_s = (List<order_dish>)Session["OrderList"];
-            }
+            cart_notice.InnerText = order_s.Count.ToString();
         }
 
         public void getListDish()
@@ -71,11 +83,14 @@ namespace XDPTPM.thucdon
             }
 
             connection.closeConnection();
+
         }
 
         [WebMethod]
         public static string addDishToOrder(string ProductID)
         {
+            order_s = ReturnOrderList();
+
             int completionTime = 0;
             try
             {
@@ -106,13 +121,27 @@ namespace XDPTPM.thucdon
 
                 connection.closeConnection();
 
-                order_s.Add(new order_dish { OrderDetailsID = OrderDetailsID, TableID = TableID, ProductID = ProductID, Quantity = 1.ToString(), CompletionTime = completionTime.ToString()});
-                return order_s.Count.ToString(); ;
+                order_s.Add(new order_dish { TableID = HttpContext.Current.Session["tableID"].ToString(), ProductID = ProductID, Quantity = 1.ToString(), CompletionTime = completionTime.ToString() });
+
+                HttpCookie jsonCookie = new HttpCookie("OrderList");
+                jsonCookie.Expires = DateTime.Now.AddMinutes(20);
+                string json = JsonConvert.SerializeObject(order_s);
+                jsonCookie.Value = json;
+                HttpContext.Current.Response.Cookies.Add(jsonCookie);
+
+                return order_s.Count.ToString();
             }
             catch (Exception ex)
             {
                 return "Error";
             }
+        }
+
+        private static List<order_dish> ReturnOrderList()
+        {
+            string json = HttpContext.Current.Request.Cookies["OrderList"].Value;
+            order_s = JsonConvert.DeserializeObject<List<order_dish>>(json);
+            return order_s;
         }
     }
 }

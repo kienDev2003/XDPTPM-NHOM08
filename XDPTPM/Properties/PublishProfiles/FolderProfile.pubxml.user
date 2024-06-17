@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>E:\Project_Dev\XDPTPM-NHOM08\XDPTPM\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2024-06-15T09:49:48.6935796Z;True|2024-06-15T10:19:15.7506064+07:00;True|2024-06-15T09:12:54.3774632+07:00;True|2024-06-15T09:07:59.0741454+07:00;</History>
+    <History>True|2024-06-17T19:54:50.8758582Z;True|2024-06-18T02:39:22.7803514+07:00;True|2024-06-18T02:31:35.4685170+07:00;True|2024-06-18T02:12:27.8719222+07:00;True|2024-06-18T02:09:02.8685173+07:00;True|2024-06-18T02:02:04.9156246+07:00;True|2024-06-18T01:47:50.4546645+07:00;True|2024-06-18T01:28:29.9164217+07:00;True|2024-06-18T01:21:50.9886988+07:00;True|2024-06-18T01:13:32.7889348+07:00;True|2024-06-18T01:09:37.2006528+07:00;True|2024-06-18T00:55:14.8837086+07:00;True|2024-06-18T00:44:10.9443148+07:00;False|2024-06-18T00:43:38.6323362+07:00;True|2024-06-18T00:36:56.0778956+07:00;True|2024-06-18T00:30:50.8375594+07:00;True|2024-06-17T23:36:46.6778278+07:00;True|2024-06-17T23:28:37.3854652+07:00;True|2024-06-17T23:25:25.9183370+07:00;True|2024-06-17T23:16:54.6602456+07:00;True|2024-06-17T23:04:20.2780729+07:00;True|2024-06-17T22:54:59.9459873+07:00;True|2024-06-17T22:44:51.1160394+07:00;True|2024-06-17T22:24:52.6403776+07:00;True|2024-06-17T22:03:10.4771303+07:00;True|2024-06-17T22:01:18.4654144+07:00;True|2024-06-17T21:53:49.5070164+07:00;True|2024-06-17T17:43:48.8848377+07:00;True|2024-06-17T17:28:41.4620261+07:00;True|2024-06-15T16:49:48.6935796+07:00;True|2024-06-15T10:19:15.7506064+07:00;True|2024-06-15T09:12:54.3774632+07:00;True|2024-06-15T09:07:59.0741454+07:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -44,6 +44,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>06/14/2024 21:07:41</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>03/08/2023 14:09:56</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/14/2024 21:07:41</publishTime>
@@ -193,19 +196,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/14/2024 21:07:41</publishTime>
     </File>
     <File Include="bin/XDPTPM.dll">
-      <publishTime>06/15/2024 16:49:48</publishTime>
+      <publishTime>06/18/2024 02:37:19</publishTime>
     </File>
     <File Include="bin/XDPTPM.pdb">
-      <publishTime>06/15/2024 16:49:48</publishTime>
+      <publishTime>06/18/2024 02:37:19</publishTime>
     </File>
     <File Include="client/cart/index.aspx">
       <publishTime>06/14/2024 21:07:41</publishTime>
     </File>
     <File Include="client/checkout/assets/css/main.css">
-      <publishTime>06/14/2024 21:07:41</publishTime>
+      <publishTime>06/15/2024 23:09:09</publishTime>
     </File>
     <File Include="client/checkout/assets/css/res.css">
-      <publishTime>06/14/2024 21:07:41</publishTime>
+      <publishTime>06/15/2024 23:09:09</publishTime>
     </File>
     <File Include="client/checkout/assets/img/image.jpg">
       <publishTime>06/14/2024 21:07:41</publishTime>
@@ -241,10 +244,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/14/2024 21:07:41</publishTime>
     </File>
     <File Include="client/thucdon/index.aspx">
-      <publishTime>06/14/2024 21:07:41</publishTime>
+      <publishTime>06/17/2024 21:41:26</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/15/2024 09:12:53</publishTime>
+      <publishTime>06/17/2024 17:28:39</publishTime>
     </File>
   </ItemGroup>
 </Project>

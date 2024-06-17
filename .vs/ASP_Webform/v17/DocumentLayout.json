@@ -1,12 +1,71 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "E:\\Project_Dev\\XDPTPM-NHOM08\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0707ED49-01B3-440B-B20C-345854AE440F}|XDPTPM\\XDPTPM.csproj|e:\\project_dev\\xdptpm-nhom08\\xdptpm\\client\\thucdon\\index.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0707ED49-01B3-440B-B20C-345854AE440F}|XDPTPM\\XDPTPM.csproj|solutionrelative:xdptpm\\client\\thucdon\\index.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0707ED49-01B3-440B-B20C-345854AE440F}|XDPTPM\\XDPTPM.csproj|e:\\project_dev\\xdptpm-nhom08\\xdptpm\\client\\checkout\\index.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0707ED49-01B3-440B-B20C-345854AE440F}|XDPTPM\\XDPTPM.csproj|solutionrelative:xdptpm\\client\\checkout\\index.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0707ED49-01B3-440B-B20C-345854AE440F}|XDPTPM\\XDPTPM.csproj|e:\\project_dev\\xdptpm-nhom08\\xdptpm\\client\\cart\\index.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0707ED49-01B3-440B-B20C-345854AE440F}|XDPTPM\\XDPTPM.csproj|solutionrelative:xdptpm\\client\\cart\\index.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "index.aspx.cs",
+              "DocumentMoniker": "E:\\Project_Dev\\XDPTPM-NHOM08\\XDPTPM\\client\\checkout\\index.aspx.cs",
+              "RelativeDocumentMoniker": "XDPTPM\\client\\checkout\\index.aspx.cs",
+              "ToolTip": "E:\\Project_Dev\\XDPTPM-NHOM08\\XDPTPM\\client\\checkout\\index.aspx.cs",
+              "RelativeToolTip": "XDPTPM\\client\\checkout\\index.aspx.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAlwDYAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-17T17:34:43.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "index.aspx.cs",
+              "DocumentMoniker": "E:\\Project_Dev\\XDPTPM-NHOM08\\XDPTPM\\client\\thucdon\\index.aspx.cs",
+              "RelativeDocumentMoniker": "XDPTPM\\client\\thucdon\\index.aspx.cs",
+              "ToolTip": "E:\\Project_Dev\\XDPTPM-NHOM08\\XDPTPM\\client\\thucdon\\index.aspx.cs",
+              "RelativeToolTip": "XDPTPM\\client\\thucdon\\index.aspx.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAkwCMAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-17T17:34:02.605Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "index.aspx.cs",
+              "DocumentMoniker": "E:\\Project_Dev\\XDPTPM-NHOM08\\XDPTPM\\client\\cart\\index.aspx.cs",
+              "RelativeDocumentMoniker": "XDPTPM\\client\\cart\\index.aspx.cs",
+              "ToolTip": "E:\\Project_Dev\\XDPTPM-NHOM08\\XDPTPM\\client\\cart\\index.aspx.cs",
+              "RelativeToolTip": "XDPTPM\\client\\cart\\index.aspx.cs",
+              "ViewState": "AQIAAMIAAAAAAAAAAAD4v9IAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-17T17:33:22.336Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

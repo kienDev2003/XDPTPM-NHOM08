@@ -117,7 +117,7 @@
             <a href="../cart/index.aspx">
 
                 <i class='cart-icon-i bx bx-cart'></i>
-                <span id="cart_notice" class="cart-notice">0</span>
+                <span id="cart_notice" runat="server" class="cart-notice">0</span>
 
             </a>
         </div>
