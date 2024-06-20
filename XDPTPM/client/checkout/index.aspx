@@ -105,14 +105,14 @@
 
                             setTimeout(function () {
                                 window.location.href = '../thanks/index.aspx?time=' + completionTime;
-                            }, 5000);
+                            }, 1500);
                         },
                         failure: function (response) {
                             alert("error");
                         }
                     });
                 }
-            }, 8000);
+            }, 3000);
         });
 
     </script>

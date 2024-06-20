@@ -16,25 +16,26 @@ namespace XDPTPM.client.checkout
 {
     public partial class index : System.Web.UI.Page
     {
-        static List<order_dish> listOrder = new List<order_dish>();
-        static List<checkOut> list = new List<checkOut>();
         static DbConnection connection = new DbConnection();
+        static Manage_cookies manage_Cookies = new Manage_cookies();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            List<order_dish> listOrder = new List<order_dish>();
+            List<checkOut> list = new List<checkOut>();
 
             if (!IsPostBack)
             {
                 try
                 {
-                    list = ReturnListCheckOut();
-                    listOrder = ReturnListOrderDish();
+                    list = manage_Cookies.ReturnListCheckOut();
+                    listOrder = manage_Cookies.ReturnOrderList();
 
                     setContent(list);
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("<script>alert(\"Truy cập không hợp lệ\")</script>");
+                    Response.Write("<script>alert(\"Vui lòng load lại trang !\")</script>");
                 }
             }
         }
@@ -53,121 +54,55 @@ namespace XDPTPM.client.checkout
         [WebMethod]
         public static int checkPayment()
         {
-            int completionTimeAll = 0;
-            Mutex _checkoutMutex = new Mutex(false, HttpContext.Current.Session.SessionID.ToString());
+            List<order_dish> listOrder = new List<order_dish>();
+            List<checkOut> list = new List<checkOut>();
 
+            int completionTimeAll = 0;
             try
             {
-                // Chờ để được phép truy cập
-                if (!_checkoutMutex.WaitOne(TimeSpan.FromSeconds(5))) // Chờ tối đa 5 giây
-                {
-                    // Nếu không thể lấy được Mutex trong vòng 5 giây, 
-                    // có thể trả về mã lỗi hoặc thông báo cho người dùng
-                    return completionTimeAll; // Hoặc mã lỗi khác
-                }
+                list = manage_Cookies.ReturnListCheckOut();
+                listOrder = manage_Cookies.ReturnOrderList();
 
-                try
+                Random r = new Random();
+                if (r.Next(0, 9) == 6)
                 {
-                    list = ReturnListCheckOut();
-                    listOrder = ReturnListOrderDish();
+                    string OrderID = DateTime.Now.ToString("HH-mm-ss").Replace("-", "");
+                    string OrderDetailsID = OrderID + "9";
+                    string AmountOfMoney = list[0].total.ToString();
+                    string OrderTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    string TableID = list[0].Table_ID;
+                    bool status = true;
 
-                    Random r = new Random();
-                    while (true)
+                    connection.getConnection();
+
+                    for (int i = 0; i < listOrder.Count; i++)
                     {
-                        if (r.Next(0, 9) == 6) break;
+
+                        string productID = listOrder[i].ProductID;
+                        string quantity = listOrder[i].Quantity;
+                        string completionTime = listOrder[i].CompletionTime;
+
+                        string queryOrderDetails = $"INSERT INTO tbl_OrderDetails (ID,ProductID,Quantity,CompletionTime) VALUES ('{OrderDetailsID}','{productID}','{quantity}','{completionTime}');";
+                        int cmdOrderDetails = connection.Command(queryOrderDetails);
+
+                        if (i == 0) completionTimeAll = int.Parse(listOrder[i].CompletionTime);
+                        if (i != 0 && completionTimeAll > int.Parse(listOrder[i].CompletionTime)) completionTimeAll = int.Parse(listOrder[i].CompletionTime);
                     }
-                    if (6 == 6)
-                    {
-                        string OrderID = DateTime.Now.ToString("HH-mm-ss").Replace("-", "");
-                        string OrderDetailsID = OrderID + "9";
-                        string AmountOfMoney = list[0].total.ToString();
-                        string OrderTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        string TableID = list[0].Table_ID;
-                        bool status = true;
 
-                        connection.getConnection();
+                    string queryOrder = $"INSERT INTO tbl_Order (ID,TableID,OrderDetailsID,OrderTime,CompletionTime,Status,AmountOfMoney) VALUES ('{OrderID}','{TableID}','{OrderDetailsID}','{OrderTime}','{completionTimeAll}','{status}','{AmountOfMoney}');";
+                    int cmdOrder = connection.Command(queryOrder);
 
-                        for (int i = 0; i < listOrder.Count; i++)
-                        {
+                    connection.closeConnection();
 
-                            string productID = listOrder[i].ProductID;
-                            string quantity = listOrder[i].Quantity;
-                            string completionTime = listOrder[i].CompletionTime;
+                    manage_Cookies.RemoveAllCookie();
 
-                            string queryOrderDetails = $"INSERT INTO tbl_OrderDetails (ID,ProductID,Quantity,CompletionTime) VALUES (@ID,@ProductID,@Quantity,@CompletionTime);";
-                            using (SqlCommand cmd = new SqlCommand(queryOrderDetails, connection.conn))
-                            {
-                                cmd.Parameters.AddWithValue("@ID", OrderDetailsID);
-                                cmd.Parameters.AddWithValue("@ProductID", productID);
-                                cmd.Parameters.AddWithValue("@Quantity", quantity);
-                                cmd.Parameters.AddWithValue("@CompletionTime", completionTime);
-
-                                cmd.ExecuteNonQuery();
-                            }
-
-                            if (i == 0) completionTimeAll = int.Parse(listOrder[i].CompletionTime);
-                            if (i != 0 && completionTimeAll > int.Parse(listOrder[i].CompletionTime)) completionTimeAll = int.Parse(listOrder[i].CompletionTime);
-                        }
-
-                        string queryOrder = "INSERT INTO tbl_Order (ID,TableID,OrderDetailsID,OrderTime,CompletionTime,Status,AmountOfMoney) VALUES (@ID,@TableID,@OrderDetailsID,@OrderTime,@CompletionTime,@Status,@AmountOfMoney)";
-                        using (SqlCommand cmd = new SqlCommand(queryOrder, connection.conn))
-                        {
-                            cmd.Parameters.AddWithValue("@ID", OrderID);
-                            cmd.Parameters.AddWithValue("@TableID", TableID);
-                            cmd.Parameters.AddWithValue("@OrderDetailsID", OrderDetailsID);
-                            cmd.Parameters.AddWithValue("@OrderTime", OrderTime);
-                            cmd.Parameters.AddWithValue("@CompletionTime", completionTimeAll);
-                            cmd.Parameters.AddWithValue("@Status", status);
-                            cmd.Parameters.AddWithValue("@AmountOfMoney", AmountOfMoney);
-
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        connection.closeConnection();
-
-                        var cookieNames = new List<string>();
-                        foreach (string cookieName in HttpContext.Current.Request.Cookies)
-                        {
-                            cookieNames.Add(cookieName);
-                        }
-
-                        foreach (string cookieName in cookieNames)
-                        {
-                            HttpCookie cookie = new HttpCookie(cookieName);
-                            cookie.Expires = DateTime.Now.AddDays(-1);
-
-                            HttpContext.Current.Response.Cookies.Add(cookie);
-                        }
-                    }
-                    return completionTimeAll;
                 }
-                finally
-                {
-                    // Cho phép luồng khác truy cập
-                    _checkoutMutex.ReleaseMutex();
-                }
+                return completionTimeAll;
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi
-                return completionTimeAll; // Hoặc mã lỗi khác
+                return completionTimeAll;
             }
-        }
-
-        private static List<order_dish> ReturnListOrderDish()
-        {
-            HttpCookie listCookie = HttpContext.Current.Request.Cookies["OrderList"];
-            string stringListOrder = listCookie.Value;
-            listOrder = JsonConvert.DeserializeObject<List<order_dish>>(stringListOrder);
-            return listOrder;
-        }
-
-        private static List<checkOut> ReturnListCheckOut()
-        {
-            HttpCookie listCookie = HttpContext.Current.Request.Cookies["checkOut"];
-            string stringListCheckout = listCookie.Value;
-            list = JsonConvert.DeserializeObject<List<checkOut>>(stringListCheckout);
-            return list;
         }
     }
 }

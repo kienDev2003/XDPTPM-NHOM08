@@ -17,79 +17,102 @@ namespace XDPTPM.thucdon
     public partial class index : System.Web.UI.Page
     {
         static DbConnection connection = new DbConnection();
-        static List<order_dish> order_s = new List<order_dish>();
-        
+        static Manage_cookies manage_Cookies = new Manage_cookies();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            if(!IsPostBack)
+            List<order_dish> order_s = new List<order_dish>();
+
+            if (!IsPostBack)
             {
                 try
                 {
                     string TableID = Request.QueryString["tableID"].ToString();
                     Session["tableID"] = TableID;
 
-                    getListDish();
+                    try
+                    {
+                        string classifyID = Request.QueryString["classify"].ToString();
+                        getListDish(int.Parse(classifyID));
+                    }catch(Exception ex)
+                    {
+                        getListDish(0);
+                    }
+                    getListMenuClassify();
+                    if (Request.Cookies["OrderList"] != null) order_s = manage_Cookies.ReturnOrderList();
+                    manage_Cookies.AddCookieOrder("OrderList", order_s, 20);
 
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("<script>alert(\"Truy cập không hợp lệ.\")</script>");
+                    Response.Write("<script>alert(\"Không có mã bàn !.\")</script>");
                     return;
                 }
-                if (Request.Cookies["OrderList"] == null)
-                {
-                    HttpCookie jsonCookie = new HttpCookie("OrderList");
-                    jsonCookie.Expires = DateTime.Now.AddMinutes(20);
-                    string json = JsonConvert.SerializeObject(order_s);
-                    jsonCookie.Value = json;
-                    Response.Cookies.Add(jsonCookie);
 
-                }
-                else
-                {
-                    order_s = ReturnOrderList();
-                }
             }
             cart_notice.InnerText = order_s.Count.ToString();
         }
 
-        public void getListDish()
+        private void getListMenuClassify()
+        {
+            list_menu_classify.Controls.Clear();
+            string lis = "";
+
+            connection.getConnection();
+
+            string query = "SELECT * FROM tbl_Classify";
+            using(SqlDataReader dataReader = connection.DataReader(query))
+            {
+                while (dataReader.Read())
+                {
+                    string id = dataReader.GetInt32(0).ToString();
+                    string value = dataReader.GetString(1);
+
+                    string temp = $"<li><a class=\"a_classify\" id=\"{id}\" href=\"\">{value}</a></li>";
+                    lis += temp;
+                }
+                LiteralControl literalControl = new LiteralControl(lis);
+                list_menu_classify.Controls.Add(literalControl);
+            }
+
+            connection.closeConnection();
+        }
+
+        public void getListDish(int classifyID)
         {
             list_dish.Controls.Clear();
 
             string itemHtml = "";
 
             connection.getConnection();
-
-            string query = "SELECT * FROM tbl_Product WHERE Status = 1;";
-            using (SqlCommand cmd = new SqlCommand(query, connection.conn))
+            string query = "";
+            if (classifyID == 0) query = $"SELECT * FROM tbl_Product WHERE Status = 1;";
+            else query = $"SELECT * FROM tbl_Product WHERE Status = 1 AND ClassifyID = {classifyID};";
+            using (SqlDataReader dataReader = connection.DataReader(query))
             {
-                using (SqlDataReader dataReader = cmd.ExecuteReader())
+                while (dataReader.Read())
                 {
-                    while (dataReader.Read())
-                    {
-                        string productID = dataReader.GetInt32(0).ToString();
-                        string productName = dataReader.GetString(1);
-                        string productPrice = dataReader.GetInt32(3).ToString();
-                        string productImage = dataReader.GetString(5);
+                    string productID = dataReader.GetInt32(0).ToString();
+                    string productName = dataReader.GetString(1);
+                    string productPrice = dataReader.GetInt32(3).ToString();
+                    string productImage = dataReader.GetString(5);
 
-                        string itemTemp = $"<li class=\"item-dish\"><img src=\"{productImage}\" alt=\"\" class=\"img-dish\" /><p class=\"name-dish\">{productName}</p><p class=\"price-dish\">{productPrice}</p><input id=\"{productID}\" type=\"button\" value=\"Chọn món\" class=\"order-dish\" /></li>";
-                        itemHtml += itemTemp;
-                    }
-                    LiteralControl literalControl = new LiteralControl(itemHtml);
-                    list_dish.Controls.Add(literalControl);
+                    string itemTemp = $"<li class=\"item-dish\"><img src=\"{productImage}\" alt=\"\" class=\"img-dish\" /><p class=\"name-dish\">{productName}</p><p class=\"price-dish\">{productPrice}</p><input id=\"{productID}\" type=\"button\" value=\"Chọn món\" class=\"order-dish\" /></li>";
+                    itemHtml += itemTemp;
                 }
+                LiteralControl literalControl = new LiteralControl(itemHtml);
+                list_dish.Controls.Add(literalControl);
             }
 
             connection.closeConnection();
-
         }
 
         [WebMethod]
         public static string addDishToOrder(string ProductID)
         {
-            order_s = ReturnOrderList();
+            List<order_dish> order_s = new List<order_dish>();
+
+            order_s = manage_Cookies.ReturnOrderList();
 
             int completionTime = 0;
             try
@@ -102,20 +125,16 @@ namespace XDPTPM.thucdon
                         return order_s.Count.ToString();
                     }
                 }
+
                 connection.getConnection();
 
-                string sql = $"SELECT CompletionTime FROM tbl_Product WHERE ID = @ProductID";
-                using (SqlCommand cmd = new SqlCommand(sql, connection.conn))
+                string sql = $"SELECT CompletionTime FROM tbl_Product WHERE ID = '{ProductID}'";
+                using (SqlDataReader reader = connection.DataReader(sql))
                 {
-                    cmd.Parameters.AddWithValue("@ProductId", ProductID);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    if (reader.Read())
                     {
-                        if (reader.Read())
-                        {
-                            string temp = reader.GetInt32(0).ToString();
-                            completionTime = int.Parse(temp);
-                        }
+                        string temp = reader.GetInt32(0).ToString();
+                        completionTime = int.Parse(temp);
                     }
                 }
 
@@ -123,25 +142,14 @@ namespace XDPTPM.thucdon
 
                 order_s.Add(new order_dish { TableID = HttpContext.Current.Session["tableID"].ToString(), ProductID = ProductID, Quantity = 1.ToString(), CompletionTime = completionTime.ToString() });
 
-                HttpCookie jsonCookie = new HttpCookie("OrderList");
-                jsonCookie.Expires = DateTime.Now.AddMinutes(20);
-                string json = JsonConvert.SerializeObject(order_s);
-                jsonCookie.Value = json;
-                HttpContext.Current.Response.Cookies.Add(jsonCookie);
+                manage_Cookies.AddCookieOrder("OrderList",order_s, 20);
 
                 return order_s.Count.ToString();
             }
             catch (Exception ex)
             {
-                return "Error";
+                return "error";
             }
-        }
-
-        private static List<order_dish> ReturnOrderList()
-        {
-            string json = HttpContext.Current.Request.Cookies["OrderList"].Value;
-            order_s = JsonConvert.DeserializeObject<List<order_dish>>(json);
-            return order_s;
         }
     }
 }

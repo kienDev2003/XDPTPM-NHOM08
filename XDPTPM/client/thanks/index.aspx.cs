@@ -11,15 +11,7 @@ namespace XDPTPM.client.thanks
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["OrderList"] != null)
-            {
-                Session.Remove("OrderList");
-            }
-
-            if (Session["checkOut"] != null)
-            {
-                Session.Remove("checkOut");
-            }
+            
         }
     }
 }

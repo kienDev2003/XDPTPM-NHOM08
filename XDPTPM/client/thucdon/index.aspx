@@ -73,7 +73,7 @@
         <header>
             <div class="menu1">
                 <div class="logo">
-                    <a class="navbar-brand" href="">
+                    <a class="navbar-brand" href="" id="a_menu">
                         <span class="text-danger">Thực Đơn</span>
                     </a>
                 </div>
@@ -81,15 +81,14 @@
                     <span><i></i><i></i><i></i></span>
                 </div>
                 <nav class="list-menu">
-                    <ul>
-                        <li><a href="">Cơm</a></li>
-                        <li><a href="">Bún</a></li>
-                        <li><a href="">Bánh</a></li>
-                        <li><a href="">Nhậu</a></li>
-                        <li><a href="">Gỏi</a></li>
-                        <li><a href="">Đồ Cuốn</a></li>
-                        <li><a href="">Lẩu - Nướng</a></li>
-                        <li><a href="">Lẩu - Nướng</a></li>
+                    <ul id="list_menu_classify" runat="server">
+                        <li><a class="a_classify" id="3" href="">Cơm</a></li>
+                        <li><a class="a_classify" id="1009" href="">Bún - Phở</a></li>
+                        <li><a class="a_classify" id="1010" href="">Bánh</a></li>
+                        <li><a class="a_classify" id="1011" href="">Đồ Ăn Chơi</a></li>
+                        <li><a class="a_classify" href="">Đồ Cuốn</a></li>
+                        <li><a class="a_classify" href="">Lẩu - Nướng</a></li>
+                        <li><a class="a_classify" href="">Buffet</a></li>
                     </ul>
                 </nav>
                 <div class="button-search"></div>
@@ -144,6 +143,39 @@
                     }
                 });
             });
+
+            var aClassify = document.querySelectorAll(".a_classify");
+            aClassify.forEach(function (aClassify) {
+                aClassify.addEventListener('click', function () {
+                    event.preventDefault();
+
+                    var aClassifyID = aClassify.id;
+
+                    let url = new URL(window.location.href);
+                    let params = new URLSearchParams(url.search);
+                    if (!params.has('classify')) {
+                        params.append('classify', aClassifyID);
+                    }
+                    else {
+                        params.set('classify', aClassifyID);
+                    }
+                    url.search = params.toString();
+                    let newUrl = url.toString();
+                    window.location.href = newUrl;
+                });
+            });
+
+            var aMenu = document.getElementById("a_menu");
+            aMenu.addEventListener('click', function () {
+                event.preventDefault();
+
+                let url = new URL(window.location.href);
+                let params = new URLSearchParams(url.search);
+                params.delete('classify');
+                url.search = params.toString();
+                let newUrl = url.toString();
+                window.location.href = newUrl;
+            })
         </script>
     </form>
 </body>

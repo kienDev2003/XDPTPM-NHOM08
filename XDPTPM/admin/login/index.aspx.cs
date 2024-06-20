@@ -40,7 +40,8 @@ namespace XDPTPM.admin.login
                 {
                     if(reader.Read())
                     {
-                        Response.Redirect("../../bep/index.aspx");
+                        Session["loginToken"] = Guid.NewGuid().ToString();
+                        Response.Redirect("../quanly/view/HomeAdmin.aspx");
                     }
                     else
                     {

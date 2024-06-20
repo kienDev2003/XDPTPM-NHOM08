@@ -35,7 +35,7 @@ namespace XDPTPM.bep
                         int tableID = dataReader.GetInt32(1);
                         int orderDetailsID = dataReader.GetInt32(2);
 
-                        string itemTemp = $"<li class=\"item\"><a href=\"orderDetails.aspx?orderDetailsID={orderDetailsID}&tableID={tableID}&orderID={ID}\"><img src=\"../assets/bep/assets/img/images (1).png\"/><p>Bàn số {tableID}</p></a></li>";
+                        string itemTemp = $"<li class=\"item\"><a href=\"orderDetails.aspx?orderDetailsID={orderDetailsID}&tableID={tableID}&orderID={ID}\"><img src=\"./assets/img/images (1).png\"/><p>Bàn số {tableID}</p></a></li>";
                         itemHtml += itemTemp;
                     }
                 }

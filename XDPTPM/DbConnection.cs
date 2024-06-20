@@ -33,5 +33,20 @@ namespace XDPTPM
             }
             return conn;
         }
+
+        public int Command(string query)
+        {
+            using(SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
+        public SqlDataReader DataReader(string query)
+        {
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataReader dataReader = cmd.ExecuteReader();
+            return dataReader;
+        }
     }
 }
