@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Net.Http;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -11,6 +12,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net;
 
 namespace XDPTPM.client.checkout
 {
@@ -63,8 +65,9 @@ namespace XDPTPM.client.checkout
                 list = manage_Cookies.ReturnListCheckOut();
                 listOrder = manage_Cookies.ReturnOrderList();
 
-                Random r = new Random();
-                if (r.Next(0, 9) == 6)
+                string urlAppScriptCheckPayment = $"https://script.google.com/macros/s/AKfycby7-FooKyZ9DEPjMj9DbbcpXX8V2KOyWgh9lVd6tGgfmnnulB-aFf_mZRW-NI-Ks1C9rw/exec?description={list[0].content}&value={list[0].total}";
+                bool statusPayment = GetGoogleAppsScriptCheckPayment(urlAppScriptCheckPayment);
+                if (statusPayment)
                 {
                     string OrderID = DateTime.Now.ToString("HH-mm-ss").Replace("-", "");
                     string OrderDetailsID = OrderID + "9";
@@ -103,6 +106,27 @@ namespace XDPTPM.client.checkout
             {
                 return completionTimeAll;
             }
+        }
+
+        private static bool GetGoogleAppsScriptCheckPayment(string urlGoogleAppsScript)
+        {
+            bool statusPayment = false;
+
+            using(WebClient client = new WebClient())
+            {
+                try
+                {
+                    string response = client.DownloadString(urlGoogleAppsScript);
+
+                    if (response.Trim().Equals("true", StringComparison.OrdinalIgnoreCase)) statusPayment = true;
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            return statusPayment;
         }
     }
 }
