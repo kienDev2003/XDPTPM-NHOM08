@@ -95,7 +95,7 @@ namespace XDPTPM.thucdon
                     string productID = dataReader.GetInt32(0).ToString();
                     string productName = dataReader.GetString(1);
                     string productPrice = dataReader.GetInt32(3).ToString();
-                    string productImage = dataReader.GetString(5);
+                    string productImage = dataReader.GetString(5).Replace("../../", "../");
 
                     string itemTemp = $"<li class=\"item-dish\"><img src=\"{productImage}\" alt=\"\" class=\"img-dish\" /><p class=\"name-dish\">{productName}</p><p class=\"price-dish\">{productPrice}</p><input id=\"{productID}\" type=\"button\" value=\"Chọn món\" class=\"order-dish\" /></li>";
                     itemHtml += itemTemp;

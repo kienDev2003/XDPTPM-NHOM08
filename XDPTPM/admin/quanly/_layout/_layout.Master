@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Quản lí nhà hàng</title>
+    <title>Quản lí nhà hàng</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -65,7 +65,7 @@
                 <img src="../assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Quản lí nhà hàng</span>
             </a>
-            
+
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
@@ -99,13 +99,6 @@
 
                                     </a>
                                 </li>
-
-                                <li class="nav-item">
-                                    <a href="~/Content/Client/index.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thể loại</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
 
@@ -117,29 +110,21 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="~/Admin/Account/Index" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Quản lí tài khoản
-                                </p>
-                            </a>
-                        </li>
-                       </ul>
-                    </nav>
+                    </ul>
+                </nav>
             </div>
             <!-- /.sidebar -->
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" id ="main">
-             <asp:ContentPlaceHolder ID="MainContent" runat="server">
-             </asp:ContentPlaceHolder>
+        <div class="content-wrapper" id="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-          
+
             <strong>Copyright &copy; 2024 <a href="#">Nhóm 8 - Xây dựng - Phát triển phần mềm</a>.</strong> All rights reserved.
         </footer>
 
@@ -179,7 +164,7 @@
     <script src="../assets/bootrap/dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
-    $(function () {
+        $(function () {
             //Initialize Select2 Elements
             $('.select2').select2()
 

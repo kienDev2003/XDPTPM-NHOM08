@@ -127,6 +127,50 @@ namespace XDPTPM.admin.quanly.view
 
         }
 
+        private DataTable SearchProductsByName(string searchItem)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["strConn"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("SELECT P.ID, P.Name, U.Value as UnitValue, P.Price, P.ImagePath, P.Status, C.Value as ClassifyValue FROM tbl_Product P JOIN tbl_Unit U ON P.UnitID = U.ID JOIN tbl_Classify C ON P.ClassifyID = C.ID WHERE P.Name LIKE @SearchItem", conn))
+                {
+                    cmd.Parameters.AddWithValue("@SearchItem", "%" + searchItem + "%");
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    return dt;
+                }
+            }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchItem = txtSearch.Text.Trim(); 
+            if (!string.IsNullOrEmpty(searchItem))
+            {
+                DataTable dataTable = SearchProductsByName(searchItem);
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    GridView1.DataSource = dataTable;
+                    GridView1.DataBind();
+                }
+                else
+                {
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Không tìm thấy sản phẩm phù hợp.');", true);
+                    BindGridView();
+                }
+            }
+            else
+            {
+
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Vui lòng nhập từ khóa tìm kiếm.');", true);
+            }
+        }
+
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;

@@ -23,11 +23,21 @@
 
             <div class="card-tools">
                 <asp:HyperLink ID="hlAddProduct" runat="server" CssClass="btn btn-primary" NavigateUrl="../view/EditProduct.aspx"> Thêm mới </asp:HyperLink>
+            
             </div>
+
         </div>
         <div class="card-body">
             <form id="form1" runat="server">
                 <div>
+                    <div class="row mb-2" >
+                        <div class="col-sm-6" >
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Hãy nhập tên sản phẩm..."></asp:TextBox>
+                        </div>
+                        <div class="col-sm-2">
+                            <asp:Button ID="btnSearch" runat="server" Text="Tìm kiếm" OnClick="btnSearch_Click"  CssClass="btn btn-primary" />
+                        </div>
+                    </div>
                 <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="table table-hover" OnRowCommand="gvProducts_RowCommand" AllowPaging="True" PageSize="6" OnPageIndexChanging="GridView1_PageIndexChanging">
                     <Columns>
                         <asp:BoundField DataField="ID" HeaderText="ID" />

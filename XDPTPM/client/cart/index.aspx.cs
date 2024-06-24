@@ -59,7 +59,7 @@ namespace XDPTPM.client.cart
                     if (reader.Read())
                     {
                         priceProduct = reader.GetInt32(0);
-                        imagePath = reader.GetString(1);
+                        imagePath = reader.GetString(1).Replace("../../","../");
                         name = reader.GetString(2);
                     }
                 }
@@ -115,7 +115,7 @@ namespace XDPTPM.client.cart
                     if (reader.Read())
                     {
                         priceProduct = reader.GetInt32(0);
-                        imagePath = reader.GetString(1);
+                        imagePath = reader.GetString(1).Replace("../../", "../");
                         name = reader.GetString(2);
                     }
                 }
@@ -162,6 +162,11 @@ namespace XDPTPM.client.cart
 
         protected void btn_checkout_ServerClick(object sender, EventArgs e)
         {
+            if(int.Parse(txtTotalPrice.InnerText) == 0)
+            {
+                Response.Write("<script>alert(\"Không có món ăn thanh toán !\")</script>");
+                return;
+            }
             List<order_dish> order_Dishes = new List<order_dish>();
 
             try
