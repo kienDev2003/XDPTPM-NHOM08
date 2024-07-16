@@ -18,6 +18,7 @@ namespace XDPTPM.thucdon
     {
         static DbConnection connection = new DbConnection();
         static Manage_cookies manage_Cookies = new Manage_cookies();
+        static int pageIndex;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,6 +26,7 @@ namespace XDPTPM.thucdon
 
             if (!IsPostBack)
             {
+                pageIndex = 0;
                 try
                 {
                     string TableID = Request.QueryString["tableID"].ToString();
@@ -34,11 +36,13 @@ namespace XDPTPM.thucdon
                     {
                         string classifyID = Request.QueryString["classify"].ToString();
                         getListDish(int.Parse(classifyID));
-                    }catch(Exception ex)
+                        cart_notice.InnerText = order_s.Count.ToString();
+                    }
+                    catch(Exception ex)
                     {
                         getListDish(0);
+                        cart_notice.InnerText = order_s.Count.ToString();
                     }
-                    getListMenuClassify();
                     if (Request.Cookies["OrderList"] != null) order_s = manage_Cookies.ReturnOrderList();
                     manage_Cookies.AddCookieOrder("OrderList", order_s, 20);
 
@@ -61,7 +65,7 @@ namespace XDPTPM.thucdon
             connection.getConnection();
 
             string query = "SELECT * FROM tbl_Classify";
-            using(SqlDataReader dataReader = connection.DataReader(query))
+            using (SqlDataReader dataReader = connection.DataReader(query))
             {
                 while (dataReader.Read())
                 {
@@ -82,12 +86,14 @@ namespace XDPTPM.thucdon
         {
             list_dish.Controls.Clear();
 
+            getListMenuClassify();
+
             string itemHtml = "";
 
             connection.getConnection();
             string query = "";
-            if (classifyID == 0) query = $"SELECT * FROM tbl_Product WHERE Status = 1;";
-            else query = $"SELECT * FROM tbl_Product WHERE Status = 1 AND ClassifyID = {classifyID};";
+            if (classifyID == 0) query = $"SELECT * FROM tbl_Product WHERE Status = 1 ORDER BY (ID) OFFSET {pageIndex} ROWS FETCH NEXT 24 ROWS ONLY;";
+            else query = $"SELECT * FROM tbl_Product WHERE Status = 1 AND ClassifyID = {classifyID} ORDER BY (ID) OFFSET {pageIndex} ROWS FETCH NEXT 24 ROWS ONLY;";
             using (SqlDataReader dataReader = connection.DataReader(query))
             {
                 while (dataReader.Read())
@@ -105,6 +111,33 @@ namespace XDPTPM.thucdon
             }
 
             connection.closeConnection();
+        }
+
+        [WebMethod]
+        public static string sreach(string keyword)
+        {
+            string html = "";
+
+            connection.getConnection();
+
+            string query = $"SELECT * FROM tbl_Product WHERE Name LIKE N'%{keyword}%';";
+            using (SqlDataReader dataReader = connection.DataReader(query))
+            {
+                while (dataReader.Read())
+                {
+                    string productID = dataReader.GetInt32(0).ToString();
+                    string productName = dataReader.GetString(1);
+                    string productPrice = dataReader.GetInt32(3).ToString();
+                    string productImage = dataReader.GetString(5).Replace("../../", "../");
+
+                    string itemTemp = $"<li class=\"item-dish\"><img src=\"{productImage}\" alt=\"\" class=\"img-dish\" /><p class=\"name-dish\">{productName}</p><p class=\"price-dish\">{productPrice}</p><input id=\"{productID}\" type=\"button\" value=\"Chọn món\" class=\"order-dish\" /></li>";
+                    html += itemTemp;
+                }
+            }
+
+            connection.closeConnection();
+
+            return html;
         }
 
         [WebMethod]
@@ -149,6 +182,21 @@ namespace XDPTPM.thucdon
             catch (Exception ex)
             {
                 return "error";
+            }
+        }
+
+        protected void btnNext_ServerClick(object sender, EventArgs e)
+        {
+            pageIndex += 24;
+
+            try
+            {
+                string classifyID = Request.QueryString["classify"].ToString();
+                getListDish(int.Parse(classifyID));
+            }
+            catch (Exception ex)
+            {
+                getListDish(0);
             }
         }
     }

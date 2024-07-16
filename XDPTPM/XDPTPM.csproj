@@ -1970,12 +1970,14 @@
     <Content Include="admin\quanly\assets\bootrap\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="admin\quanly\assets\bootrap\plugins\uplot\uPlot.min.css" />
     <Content Include="admin\quanly\assets\css\EditProduct.css" />
+    <Content Include="admin\quanly\assets\css\report.css" />
     <Content Include="admin\quanly\assets\css\table.css" />
     <Content Include="admin\quanly\assets\img\AdminLTELogo.png" />
     <Content Include="admin\quanly\assets\img\phở.jpg" />
     <Content Include="admin\quanly\view\EditProduct.aspx" />
     <Content Include="admin\quanly\view\HomeAdmin.aspx" />
     <Content Include="admin\quanly\view\Products.aspx" />
+    <Content Include="admin\quanly\view\Report.aspx" />
     <Content Include="bep\assets\css\global.css" />
     <Content Include="bep\assets\css\main.css" />
     <Content Include="bep\assets\css\orderDetails.css" />
@@ -2026,6 +2028,13 @@
     </Compile>
     <Compile Include="admin\quanly\view\Products.aspx.designer.cs">
       <DependentUpon>Products.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\quanly\view\Report.aspx.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\quanly\view\Report.aspx.designer.cs">
+      <DependentUpon>Report.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\quanly\_layout\_layout.Master.cs">
       <DependentUpon>_layout.Master</DependentUpon>
